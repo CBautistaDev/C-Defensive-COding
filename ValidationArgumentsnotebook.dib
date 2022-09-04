@@ -1,0 +1,101 @@
+#!markdown
+
+Unit tests 
+- Valid inputs
+- data entry rules
+- edge cases 
+- invalid inputs
+- possible exceptions
+- emtpy and null
+
+#!csharp
+
+ //validating method arguments is easier if method arguments is clear
+ 
+
+#!markdown
+
+## Return Predictable Results
+Providing multiple results from a method
+
+- ref parameters
+- out parameters
+- a tuple
+- an object
+
+#!csharp
+
+// ref parameters
+
+var message = "";
+
+public bool ValidateEffectiveDate(DateTime? effectiveDate, ref string validationMessage){
+    if(!effectiveDate.HasValue){
+        validationMessage = "Date has no value";
+
+        return false;
+    }
+
+    if(effectiveDate.Value < DateTime.Now.AddDays(7)){
+        validationMessage = "Date must be >= 7 from today";
+        return false;
+    }
+
+    return true;
+}
+
+DateTime test = DateTime.Now.AddDays(8);
+var isValid = ValidateEffectiveDate(test, ref message);
+
+Console.WriteLine(isValid + message);
+
+#!csharp
+
+// out parameters
+//string message;
+
+public bool ValidateEffectiveDate(DateTime? effectiveDate, out string validationMessage){
+    validationMessage = "";
+    if(!effectiveDate.HasValue){
+        validationMessage = "Date has no value";
+
+        return false;
+    }
+
+    if(effectiveDate.Value < DateTime.Now.AddDays(7)){
+        validationMessage = "Date must be >= 7 from today";
+        return false;
+    }
+
+    return true;
+}
+DateTime test;
+
+var isValid = ValidateEffectiveDate(test, out string message);
+
+Console.WriteLine(isValid +  message);
+
+#!csharp
+
+// tuple
+
+var validation = (false, "message");
+
+// named tuple
+var Namedvalidation = (Isvalid:false, Message:"");
+
+
+
+public (bool IsValid, string Message) ValidateEffectiveDate(DateTime? effectiveDate){
+
+    if(!effectiveDate.HasValue) return (IsValid: false, Message:"Date has nop value");
+
+    if(effectiveDate.Value < DateTime.Now.AddDays(7)) return (false, "Date must be >= 7 from today");
+
+    return (IsValid: true, Message:"Valid Date");
+}
+
+DateTime test = DateTime.Now.AddDays(10);
+var tupleRespone = ValidateEffectiveDate(test);
+
+Console.WriteLine(tupleRespone);
