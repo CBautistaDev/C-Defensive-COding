@@ -1,0 +1,18 @@
+#!csharp
+
+//dynmiac object is not the same as object
+dynamic testDynamic;
+var testVar = 2;
+
+
+testDynamic = 1;
+
+testDynamic = testDynamic + 2.1;
+
+static string GetMessage(){
+    
+    return "This is a test";
+}
+
+
+Console.WriteLine(testDynamic);
